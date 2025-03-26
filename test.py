@@ -45,3 +45,10 @@ def test_like_and_unlike_photo():
     photo_id = get_first_photo_id()
     like_photo(photo_id)
     delete_like(photo_id)
+
+@allure.title("Проверка имени пользователя")
+def test_check_username():
+    url = f"{BASE_URL}/api/users/me"
+    headers = {"Authorization": f"Bearer {TOKEN}"}
+    response = requests.get(url, headers=headers)
+    assert response.json()["data"]["name"] == "Incorrect Name", "Имя пользователя не совпадает"
